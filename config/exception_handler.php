@@ -3,5 +3,5 @@
 set_exception_handler('exceptionHandler');
 
 function exceptionHandler($e) {
-    echo $e->getMessage() . "\n";
+    echo $e . $e->getMessage() . "\n";
 }

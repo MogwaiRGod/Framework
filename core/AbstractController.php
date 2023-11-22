@@ -1,54 +1,54 @@
 <?php
 namespace core;
-use ORM\UserORM as UserORM;
-use Model\User as User;
 use Exception;
 
 abstract class AbstractController {
-    protected 
-    public static function add(mixed $object) : mixed
+    public $ORMName;
+    
+    public function add(mixed $object) : mixed
     {
-        $ORM = new UserORM();
+        $ORM = new $this->ORMName();
         try {
-            // add user to the json
-            $ORM->create($user);
+            // add object to the json
+            var_dump($ORM->create($user));
         }
         catch (Exception $e) {
             echo("Warning " . $e->getMessage() . "\n");
         }
     }
 
-    public static function get(int $id) : mixed
+    public function get(int $id) : mixed
     {
-        $ORM = new UserORM();
+        $ORM = new $this->ORMName();
         try {
-            // get user from the json
-            $user = $ORM->read($id);
-            return $user;
+            // get object from the json
+            $object = $ORM->read($id);
+            var_dump($object);
+            return $object;
         }
         catch (Exception $e) {
             echo("Warning " . $e->getMessage() . "\n");
         }
     }
 
-    public static function update(User $updatedUser) : User | Exception
+    public function update(mixed $updatedObject) : mixed
     {
-        $ORM = new UserORM();
+        $ORM = new $this->ORMName();
         try {
-            // get user from the json
-            $user = $ORM->update($updatedUser);
-            return $user;
+            // update object from the json
+            $object = $ORM->update($updatedObject);
+            return $object;
         }
         catch (Exception $e) {
             echo("Warning " . $e->getMessage() . "\n");
         }
     }
 
-    public static function delete(int $id) : ?Exception
+    public function delete(int $id) : bool | Exception
     {
-        $ORM = new UserORM();
+        $ORM = new $this->ORMName();
         try {
-            // delete user from the json
+            // delete object from the json
             return $ORM->delete($id);
         }
         catch (Exception $e) {

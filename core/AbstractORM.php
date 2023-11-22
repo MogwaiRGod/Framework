@@ -6,7 +6,7 @@ use Exception;
 use Utils\Functions as Functions;
 use ReflectionClass;
 
-abstract class AbstractORM {
+abstract class AbstractORM implements ORMInterface {
     public $tableName;
     public $uniqueProps;
     public $className;
@@ -36,7 +36,8 @@ abstract class AbstractORM {
                 } // foreach
             } // foreach
             // getting the highest ID from the json to define the user ID
-            $id = Functions::sortByKeyValue($data[$this->tableName], "id", "r")[0] + 1;
+            var_dump(Functions::sortByKeyValue($data[$this->tableName], "id", "r")[0]);
+            $id = (int)Functions::sortByKeyValue($data[$this->tableName], "id", "r")[0] + 1;
         } 
         else {
             $id = 1;
@@ -44,8 +45,16 @@ abstract class AbstractORM {
 
         // adding an id to the object
         $object = $object->setId($id);
-        // adding the new object to the array
-        array_push($data[$this->tableName], $object);
+
+        // if the "table" key doesn't exist in the json file
+        if (!isset($data[$this->tableName])) {
+            $data[$this->tableName] = [$object];
+        }
+        else {
+            // adding the new object to the array
+            array_push($data[$this->tableName], $object);
+        } // if else
+        
 
         // saving the updated data in the JSON file
         if (!$this->saveData($data)) {
@@ -122,7 +131,20 @@ abstract class AbstractORM {
         return $updatedObject;
     } // update
 
-    public function delete(int $id): bool | Exception
+    /**
+     * @param mixed $object Object to be deleted
+     * @return mixed Return value of each child ORM will be: bool if success, Exception if error
+     */
+    public function delete(mixed $object): mixed
+    {
+        return $this->deleteById($object->getId());
+    } // delete
+
+    /**
+     * @param int $id ID of the object to be deleted
+     * @return mixed Return value of each child ORM will be: bool if success, Exception if error
+     */
+    public function deleteById(int $id): mixed
     {
         // decoded JSON file
         $data = $this->retrieveData();
@@ -156,7 +178,7 @@ abstract class AbstractORM {
         $json = file_get_contents(JSON_FILE_URL);
         // returning the decoded the file
         return json_decode($json, true);
-    }
+    } // retrieveData
 
     /**
      * @param array Updated array
@@ -169,11 +191,11 @@ abstract class AbstractORM {
             $encodedJSON = json_encode($jsonToSave, JSON_PRETTY_PRINT);
             // sending data to the file
             file_put_contents(JSON_FILE_URL, $encodedJSON);
+
             return true;
-        }
+        } // try
         catch (Exception $e) {
             return false;
-        }
-
-    }
+        } // catch
+    } // saveData
 } // CRUD

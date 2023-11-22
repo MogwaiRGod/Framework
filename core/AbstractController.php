@@ -1,16 +1,15 @@
 <?php
 namespace core;
-use ORM\UserORM as UserORM;
-use Model\User as User;
 use Exception;
 
 abstract class AbstractController {
-    protected 
+    private $ORMName;
+    
     public static function add(mixed $object) : mixed
     {
-        $ORM = new UserORM();
+        $ORM = new $ORMName();
         try {
-            // add user to the json
+            // add object to the json
             $ORM->create($user);
         }
         catch (Exception $e) {
@@ -20,35 +19,35 @@ abstract class AbstractController {
 
     public static function get(int $id) : mixed
     {
-        $ORM = new UserORM();
+        $ORM = new $ORMName();
         try {
-            // get user from the json
-            $user = $ORM->read($id);
-            return $user;
+            // get object from the json
+            $object = $ORM->read($id);
+            return $object;
         }
         catch (Exception $e) {
             echo("Warning " . $e->getMessage() . "\n");
         }
     }
 
-    public static function update(User $updatedUser) : User | Exception
+    public static function update(mixed $updatedObject) : mixed
     {
-        $ORM = new UserORM();
+        $ORM = new $ORMName();
         try {
-            // get user from the json
-            $user = $ORM->update($updatedUser);
-            return $user;
+            // update object from the json
+            $object = $ORM->update($updatedObject);
+            return $object;
         }
         catch (Exception $e) {
             echo("Warning " . $e->getMessage() . "\n");
         }
     }
 
-    public static function delete(int $id) : ?Exception
+    public static function delete(int $id) : bool | Exception
     {
-        $ORM = new UserORM();
+        $ORM = new $ORMName();
         try {
-            // delete user from the json
+            // delete object from the json
             return $ORM->delete($id);
         }
         catch (Exception $e) {

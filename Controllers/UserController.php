@@ -2,7 +2,7 @@
 
 namespace Controllers;
 use ORM\UserORM as UserORM;
-use Model\User as User;
+use Model\Car as Car;
 use core\AbstractController;
 
 class UserController extends AbstractController {

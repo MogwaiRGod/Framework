@@ -18,11 +18,12 @@ use Utils\Functions as Functions;
  * @method loadProps() : array Property names of the model
  */
 class UserORM extends AbstractORM implements ORMInterface {
-    public function __construct($tb = "users", $uq = ["username"], $class = "UserORM", $model = "Model\User", $propsNames = null) {
+    public function __construct($tb = "users", $uq = ["username", "email"], $class = "UserORM", $model = "Model\User", $propsNames = null) {
         $this->tableName = $tb;
         $this->uniqueProps = $uq;
         $this->className = $class;
         $this->modelName = $model;
+        $this->notNull = ["username", "password", "email"];
         $this->propsNames = $this->loadProps();
     } // __construct
 

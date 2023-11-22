@@ -1,0 +1,29 @@
+{
+    "users": [
+        {
+            "username": "Toto",
+            "email": "sg",
+            "password": "Tutu",
+            "id": 1
+        },
+        {
+            "username": "toto",
+            "email": "oo",
+            "password": "ui",
+            "id": 2
+        },
+        {
+            "username": "totoll",
+            "email": "oo",
+            "password": "ui",
+            "id": 3
+        },
+        {
+            "username": "totolldd",
+            "email": "ooddd",
+            "password": "ui",
+            "id": 4
+        }
+    ],
+    "cars": []
+}

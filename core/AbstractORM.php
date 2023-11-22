@@ -12,6 +12,7 @@ abstract class AbstractORM implements ORMInterface {
     public $className;
     public $modelName;
     public $propsNames;
+    public $notNull;
 
     /**
      * @param mixed $object class instance of the data to push to the JSON file
@@ -75,21 +76,28 @@ abstract class AbstractORM implements ORMInterface {
         // decoded JSON file
         $data = $this->retrieveData();
 
-        // searching through data 
-        foreach($data[$this->tableName] as $object ) {
-            if ($object["id"] == $id) {
-                // associative array property name => value
-                $arrayOfProps = [];
-                foreach($this->propsNames as $prop) {
-                    $arrayOfProps[$prop] = $object[$prop];
-                }
+        // if the table exists
+        if (isset($data[$this->tableName])) {
+            // searching through data 
+            foreach($data[$this->tableName] as $object ) {
+                echo $this->tableName;
+                if ($object["id"] == $id) {
+                    // associative array property name => value
+                    $arrayOfProps = [];
+                    foreach($this->propsNames as $prop) {
+                        $arrayOfProps[$prop] = $object[$prop];
+                    }
 
-                // using an instance of ReflectionClass in order to create the object with the associative array as argument
-                $reflector = new ReflectionClass($this->modelName);
-                // returning the data as an instance
-                return $reflector->newInstanceArgs($arrayOfProps);
-            } // if
-        } // foreach
+                    // using an instance of ReflectionClass in order to create the object with the associative array as argument
+                    $reflector = new ReflectionClass($this->modelName);
+                    // returning the data as an instance
+                    return $reflector->newInstanceArgs($arrayOfProps);
+                } // if
+            } // foreach
+        } // if
+        else {
+            throw new Exception("Table " . $this->modelName . " not found");
+        } // else
 
         throw new Exception($this->modelName . " not found");
     } // read
@@ -105,10 +113,10 @@ abstract class AbstractORM implements ORMInterface {
         // counter to save the index of the corresponding data in the json file in order to update it
         $counter = 0;
 
-        // searching corresponding user through data 
+        // searching corresponding item through json file 
         foreach($data[$this->tableName] as $object) {
             if ($object["id"] == $updatedObject->getId()) {
-                // looping through the user properties to update them in the json file
+                // looping through the object properties to update them in the json file
                 foreach ($this->propsNames as $nameProp) {
                     if ($nameProp != "id") {
                         $method = "get" . ucfirst($nameProp);

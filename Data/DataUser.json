@@ -1,0 +1,40 @@
+{
+    "users": {
+        "0": {
+            "username": "MichelBentou",
+            "email": "michel@bentou.5\u20ac",
+            "password": "forzaaaaaa",
+            "id": 1
+        },
+        "1": {
+            "username": "ddd",
+            "email": "michel@benddtou.5\u20ac",
+            "password": "forzaaadddaaa",
+            "id": 2
+        },
+        "3": {
+            "username": "bl",
+            "email": "b@f.5\u20ac",
+            "password": "b",
+            "id": 4
+        },
+        "4": {
+            "username": "lllll",
+            "email": "bssss@f.5\u20ac",
+            "password": "b",
+            "id": 5
+        },
+        "5": {
+            "username": "lllddll",
+            "email": "bssdddss@f.5\u20ac",
+            "password": "b",
+            "id": 6
+        },
+        "6": {
+            "username": "test",
+            "email": "test",
+            "password": "test",
+            "id": 7
+        }
+    }
+}

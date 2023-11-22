@@ -1,28 +1,10 @@
 {
-    "users": {
-        "0": {
-            "username": "Toto",
-            "email": "sg",
-            "password": "Tutu",
-            "id": 1
-        },
-        "3": {
-            "username": "sg",
-            "email": "sg",
-            "password": "gs",
-            "id": 4
-        },
-        "4": {
-            "username": "sfg",
-            "email": "sfg",
-            "password": "fgs",
-            "id": 5
-        },
-        "5": {
-            "username": "f",
-            "email": "f",
-            "password": "f",
-            "id": 6
+    "users": [
+        {
+        "username": "Toto",
+        "email": "sg",
+        "password": "Tutu",
+        "id": 1
         }
-    }
+    ]
 }

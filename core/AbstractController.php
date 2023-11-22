@@ -3,26 +3,27 @@ namespace core;
 use Exception;
 
 abstract class AbstractController {
-    private $ORMName;
+    public $ORMName;
     
-    public static function add(mixed $object) : mixed
+    public function add(mixed $object) : mixed
     {
-        $ORM = new $ORMName();
+        $ORM = new $this->ORMName();
         try {
             // add object to the json
-            $ORM->create($user);
+            var_dump($ORM->create($user));
         }
         catch (Exception $e) {
             echo("Warning " . $e->getMessage() . "\n");
         }
     }
 
-    public static function get(int $id) : mixed
+    public function get(int $id) : mixed
     {
-        $ORM = new $ORMName();
+        $ORM = new $this->ORMName();
         try {
             // get object from the json
             $object = $ORM->read($id);
+            var_dump($object);
             return $object;
         }
         catch (Exception $e) {
@@ -30,9 +31,9 @@ abstract class AbstractController {
         }
     }
 
-    public static function update(mixed $updatedObject) : mixed
+    public function update(mixed $updatedObject) : mixed
     {
-        $ORM = new $ORMName();
+        $ORM = new $this->ORMName();
         try {
             // update object from the json
             $object = $ORM->update($updatedObject);
@@ -43,9 +44,9 @@ abstract class AbstractController {
         }
     }
 
-    public static function delete(int $id) : bool | Exception
+    public function delete(int $id) : bool | Exception
     {
-        $ORM = new $ORMName();
+        $ORM = new $this->ORMName();
         try {
             // delete object from the json
             return $ORM->delete($id);

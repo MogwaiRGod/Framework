@@ -22,6 +22,7 @@ spl_autoload_register(function($class /* nom de la classe non-déclarée */) {
 });
 
 include_once './config/exception_handler.php';
+include_once './config/Router.php';
 include_once './config/Data.php';
 include_once './Utils/Functions.php';
 include_once './core/ORMInterface.php';

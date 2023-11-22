@@ -6,10 +6,5 @@ use Model\User as User;
 use core\AbstractController;
 
 class UserController extends AbstractController {
-    private $ORMName;
-
-    public function __construct()
-    {
-        $this->ORMName = "UserORM";
-    }
+    public $ORMName = "ORM\\UserORM";
 }
